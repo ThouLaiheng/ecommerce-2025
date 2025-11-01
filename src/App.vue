@@ -24,7 +24,7 @@
         :banner="promo.banner"
         :bgColor="promo.bgColor"
       >
-        <ButtonComponent :label="promo.buttonText" color="#3bb77e" />
+        <ButtonComponent :label="promo.buttonText" color="#3bb77e"/>
       </PromotionComponent>
     </div>
   </div>
@@ -89,7 +89,9 @@ const promotions = [
     buttonText: 'Shop Now',
     bgColor: '#E7EAF3',
   },
-]
+];
+
+
 </script>
 
 <style scoped>
@@ -186,4 +188,5 @@ h1 {
     flex: 0 0 45%;
   }
 }
+
 </style>

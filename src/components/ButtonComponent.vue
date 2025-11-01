@@ -1,5 +1,5 @@
 <template>
-  <button class="shop-btn" :style="{ backgroundColor: color }">
+  <button class="shop-btn" :style="{ backgroundColor: color }" @click="ShopNow">
     {{ label }}
   </button>
 </template>
@@ -12,6 +12,9 @@ defineProps({
     default: '#3bb77e'
   }
 })
+function ShopNow() {
+  alert("Let's shop Together!");
+}
 </script>
 
 <style scoped>
@@ -26,5 +29,6 @@ defineProps({
 }
 .shop-btn:hover {
   opacity: 0.85;
+  
 }
 </style>
