@@ -45,4 +45,15 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    class User extends Model{
+        public function author(){
+            return $this->hasOne(Author::class);
+        }
+        public function audiences(){
+            return $this->hasOne(Audience::class);
+        }
+        public function comments(){
+            return $this->hasMany(Comment::class);
+        }
+    }
 }

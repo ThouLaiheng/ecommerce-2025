@@ -10,7 +10,13 @@ class UserSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-    public function run(): void
+    public function run(){
+        $this->call([
+            UserSeeder::class,
+            PostSeeder::class,
+            // Other seeders can be called here
+        ]);
+    }
     {
         //
     }
