@@ -1,17 +1,19 @@
 <template>
   <div
-    class="product-card shadow-lg rounded-xl overflow-hidden transform hover:scale-[1.03] hover:shadow-2xl transition-all duration-300 cursor-pointer"
-    :style="{ color, backgroundColor: color || '#FFFFFF' }"
+    class="product-card flex-shrink-0 w-44 shadow-md rounded-2xl overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer"
+    :style="{ backgroundColor: color || '#FFFFFF' }"
   >
-    <img
-      :src="getFullImageUrl(imageSource)"
-      :alt="name"
-      class="w-full aspect-square object-contain p-4 transition-transform duration-300"
-      @error="handleImageError"
-    />
-    <div class="flex flex-col items-center justify-center p-4 text-center">
-      <h3 class="text-xl font-bold text-gray-800">{{ name }}</h3>
-      <p class="text-gray-400 font-medium text-sm mt-1">{{ productCount }} items</p>
+    <div class="p-8">
+      <img
+        :src="getFullImageUrl(imageSource)"
+        :alt="name"
+        class="w-full aspect-square object-contain"
+        @error="handleImageError"
+      />
+    </div>
+    <div class="flex flex-col items-center justify-center px-4 pb-6 pt-2 text-center">
+      <h3 class="text-base font-semibold text-gray-800">{{ name }}</h3>
+      <p class="text-gray-400 font-normal text-sm mt-1">{{ productCount }} items</p>
     </div>
   </div>
 </template>
@@ -39,7 +41,10 @@ export default {
   },
   methods: {
     getFullImageUrl(imgPath) {
-      if (!imgPath || imgPath === FALLBACK_IMAGE) return imgPath
+      if (!imgPath) return FALLBACK_IMAGE
+      // Allow local asset paths directly (Vite handles these)
+      if (imgPath.includes('src/assets/')) return imgPath
+      // For backend-provided relative paths, keep compatibility
       return imgPath.startsWith('http') ? imgPath : `http://localhost:3000/${imgPath}`
     },
     handleImageError() {

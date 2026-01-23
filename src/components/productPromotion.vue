@@ -1,24 +1,24 @@
 <template>
   <div
-    class="flex flex-col md:flex-row justify-between items-center rounded-xl p-6 shadow-md hover:shadow-xl hover:scale-[1.02] transition-all duration-300 gap-6 md:gap-10"
-    :style="{ color, backgroundColor: color || '#FFFFFF' }"
+    class="flex flex-row justify-between items-center rounded-2xl p-8 shadow-md hover:shadow-lg transition-all duration-300"
+    :style="{ backgroundColor: color || '#FFFFFF' }"
   >
-    <div class="w-full md:w-1/2 space-y-4 text-center md:text-left">
-      <h2 class="text-2xl font-semibold text-gray-800">{{ title }}</h2>
+    <div class="flex-1 space-y-4">
+      <h2 class="text-xl font-bold text-gray-800 leading-snug" style="max-width: 200px;">{{ title }}</h2>
 
       <button
-        class="px-10 py-2 text-white rounded-lg transition-colors duration-300"
+        class="px-6 py-2.5 text-sm text-white rounded-lg font-medium transition-all duration-300 hover:opacity-90 inline-flex items-center gap-2"
         :style="{ backgroundColor: buttonColor || '#10B981' }"
         @click="shopNow"
         @error="handleImageError"
       >
-        Shop Now <i class="pi pi-arrow-right"></i>
+        Shop Now <i class="pi pi-arrow-right text-xs"></i>
       </button>
     </div>
     <img
       :src="getFullImageUrl(image)"
       :alt="title"
-      class="w-full md:w-1/2 max-h-60 object-contain"
+      class="w-48 h-48 object-contain flex-shrink-0"
     />
   </div>
 </template>
@@ -51,7 +51,10 @@ export default {
     },
 
     getFullImageUrl(imgPath) {
-      if (!imgPath) return ''
+      if (!imgPath) return FALLBACK_IMAGE
+      // Allow local asset paths directly (Vite handles these)
+      if (imgPath.includes('src/assets/')) return imgPath
+      // For backend-provided relative paths, keep compatibility
       return imgPath.startsWith('http') ? imgPath : `http://localhost:3000/${imgPath}`
     },
 
