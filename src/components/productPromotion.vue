@@ -51,8 +51,8 @@ export default {
     },
 
     getFullImageUrl(imgPath) {
-      if (!imgPath) return ''
-      return imgPath.startsWith('http') ? imgPath : `http://localhost:3000/${imgPath}`
+      if (!imgPath) return FALLBACK_IMAGE
+      return imgPath
     },
 
     handleImageError() {

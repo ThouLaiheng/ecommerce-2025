@@ -39,8 +39,8 @@ export default {
   },
   methods: {
     getFullImageUrl(imgPath) {
-      if (!imgPath || imgPath === FALLBACK_IMAGE) return imgPath
-      return imgPath.startsWith('http') ? imgPath : `http://localhost:3000/${imgPath}`
+      if (!imgPath) return FALLBACK_IMAGE
+      return imgPath
     },
     handleImageError() {
       this.imageSource = FALLBACK_IMAGE
