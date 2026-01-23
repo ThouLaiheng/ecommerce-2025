@@ -25,7 +25,8 @@
 
 <script>
 import 'primeicons/primeicons.css'
-const FALLBACK_IMAGE = 'src/assets/imgs/default.png'
+import defaultImg from '@/assets/imgs/default.png'
+
 export default {
   name: 'ProductPromotion',
   props: {
@@ -37,12 +38,12 @@ export default {
   },
   data() {
     return {
-      imageSource: this.image,
+      imageSource: this.image || defaultImg,
     }
   },
   watch: {
     image(newImage) {
-      this.imageSource = newImage
+      this.imageSource = newImage || defaultImg
     },
   },
   methods: {
@@ -51,12 +52,16 @@ export default {
     },
 
     getFullImageUrl(imgPath) {
-      if (!imgPath) return ''
-      return imgPath.startsWith('http') ? imgPath : `http://localhost:3000/${imgPath}`
+      if (!imgPath) return defaultImg
+      // If it's already a full URL or import, return as is
+      if (imgPath.startsWith('http') || imgPath.startsWith('blob:') || imgPath.startsWith('data:')) {
+        return imgPath
+      }
+      return imgPath
     },
 
     handleImageError() {
-      this.imageSource = FALLBACK_IMAGE
+      this.imageSource = defaultImg
     },
   },
 }

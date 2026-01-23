@@ -17,7 +17,7 @@
 </template>
 
 <script>
-const FALLBACK_IMAGE = '@/assets/imgs/default.png'
+import defaultImg from '@/assets/imgs/default.png'
 
 export default {
   name: 'ProductCard',
@@ -29,21 +29,25 @@ export default {
   },
   data() {
     return {
-      imageSource: this.image,
+      imageSource: this.image || defaultImg,
     }
   },
   watch: {
     image(newImage) {
-      this.imageSource = newImage
+      this.imageSource = newImage || defaultImg
     },
   },
   methods: {
     getFullImageUrl(imgPath) {
-      if (!imgPath || imgPath === FALLBACK_IMAGE) return imgPath
-      return imgPath.startsWith('http') ? imgPath : `http://localhost:3000/${imgPath}`
+      if (!imgPath) return defaultImg
+      // If it's already a full URL or import, return as is
+      if (imgPath.startsWith('http') || imgPath.startsWith('blob:') || imgPath.startsWith('data:')) {
+        return imgPath
+      }
+      return imgPath
     },
     handleImageError() {
-      this.imageSource = FALLBACK_IMAGE
+      this.imageSource = defaultImg
     },
   },
 }
